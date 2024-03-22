@@ -1,5 +1,6 @@
 import express from "express";
 import mongoose from "mongoose";
+import bookRouter from "./routes/bookRoute.js";
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -15,6 +16,9 @@ app.get('/', (req, res) => {
   res.send("Book Store Backend");
 })
 
+
+// Route
+app.use('/api/books', bookRouter)
 
 
 
