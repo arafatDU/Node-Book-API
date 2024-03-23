@@ -40,7 +40,12 @@ const addBook = async (req, res) => {
 
 const getBook = async (req, res) => {
   try {
-    
+    const { id } = req.params;
+    const book = await Book.findById(id);
+    if(!book){
+      res.status(404).json({message: "Book Not Found"});
+    }
+    res.status(200).json(book);
   } catch (error) {
     res.status(500).json({message: error.message});
   }
@@ -50,7 +55,15 @@ const getBook = async (req, res) => {
 
 const updateBook = async (req, res) => {
   try {
-    
+    const { id } = req.params;
+    const book = await Book.findByIdAndUpdate(id, req.body);
+    if(!book){
+      res.status(404).json({message: "Book Not Found"});
+    }
+
+    const updatedBook = await Book.findById(id);
+
+    res.status(200).json(updatedBook);
   } catch (error) {
     res.status(500).json({message: error.message});
   }
@@ -60,7 +73,12 @@ const updateBook = async (req, res) => {
 
 const deleteBook = async (req, res) => {
   try {
-    
+    const { id } = req.params;
+    const book = await Book.findByIdAndDelete(id);
+    if(!book){
+      res.status(404).json({message: "Book Not Found"});
+    }
+    res.status(200).json({message: "Book deleted successfully"});
   } catch (error) {
     res.status(500).json({message: error.message});
   }
